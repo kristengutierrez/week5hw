@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zsd-bk-Iok">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="540"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok3-0v-jCW">
+                                <rect key="frame" x="136" y="550" width="30" height="30"/>
+                                <state key="normal" title="LV">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="vegasButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UVD-Cu-fms"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RnG-Zf-RF3">
+                                <rect key="frame" x="285" y="550" width="30" height="30"/>
+                                <state key="normal" title="SD">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sanDiegoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KMj-Ml-qui"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFT-3Y-ltP">
+                                <rect key="frame" x="425" y="550" width="30" height="30"/>
+                                <state key="normal" title="DC">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dcButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3nw-IZ-a6Z"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lFT-3Y-ltP" firstAttribute="leading" secondItem="RnG-Zf-RF3" secondAttribute="trailing" constant="110" id="0zN-Pj-Wph"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zsd-bk-Iok" secondAttribute="trailing" constant="-16" id="1gK-aq-YV1"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ok3-0v-jCW" secondAttribute="bottom" constant="20" id="EDp-RI-eyO"/>
+                            <constraint firstItem="zsd-bk-Iok" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="Ici-j3-pY4"/>
+                            <constraint firstItem="RnG-Zf-RF3" firstAttribute="leading" secondItem="ok3-0v-jCW" secondAttribute="trailing" constant="119" id="Pxo-2J-FEh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zsd-bk-Iok" secondAttribute="bottom" constant="60" id="WKs-UV-3mh"/>
+                            <constraint firstItem="zsd-bk-Iok" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="agn-dY-Vrm"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RnG-Zf-RF3" secondAttribute="bottom" constant="20" id="sxV-Qt-bZ1"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="lFT-3Y-ltP" secondAttribute="bottom" constant="20" id="vqF-Kx-6mg"/>
+                            <constraint firstAttribute="centerX" secondItem="RnG-Zf-RF3" secondAttribute="centerX" id="yuQ-nB-5hO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="zsd-bk-Iok" id="5li-H7-fSo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
