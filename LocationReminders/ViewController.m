@@ -37,8 +37,6 @@
   [self.locationManager startUpdatingLocation];
   
   
-  
-  
   self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureRecognizer:)];
   [self.mapView addGestureRecognizer:self.longPress];
   
