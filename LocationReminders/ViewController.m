@@ -11,7 +11,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import <UIKit/UIKit.h>
-#import <Reminder.h>
+#import "Reminder.h"
+#import "Constants.h"
 
 @interface ViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -20,13 +21,6 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPress;
-
-
-- (IBAction)vegasButtonPressed:(id)sender;
-
-- (IBAction)sanDiegoButtonPressed:(id)sender;
-
-- (IBAction)dcButtonPressed:(id)sender;
 
 @end
 
