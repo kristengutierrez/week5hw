@@ -36,8 +36,8 @@
 		171A87C21B97A267005E20CC /* Keys.m in Sources */ = {isa = PBXBuildFile; fileRef = 171A87C11B97A267005E20CC /* Keys.m */; };
 		171A87C51B97AC61005E20CC /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 171A87C41B97AC61005E20CC /* Constants.m */; };
 		171A87C81B97B2D9005E20CC /* AddReminderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 171A87C71B97B2D9005E20CC /* AddReminderDetailViewController.m */; };
-		171A87CA1B98B707005E20CC /* SignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 171A87C91B98B707005E20CC /* SignIn.xib */; };
-		171A87CD1B98B820005E20CC /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 171A87CC1B98B820005E20CC /* SignInViewController.m */; };
+		171A87D01B990154005E20CC /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 171A87CF1B990154005E20CC /* Node.m */; };
+		171A87D31B99019A005E20CC /* LinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 171A87D21B99019A005E20CC /* LinkedList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,9 +90,10 @@
 		171A87C41B97AC61005E20CC /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		171A87C61B97B2D9005E20CC /* AddReminderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReminderDetailViewController.h; sourceTree = "<group>"; };
 		171A87C71B97B2D9005E20CC /* AddReminderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReminderDetailViewController.m; sourceTree = "<group>"; };
-		171A87C91B98B707005E20CC /* SignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignIn.xib; sourceTree = "<group>"; };
-		171A87CB1B98B820005E20CC /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
-		171A87CC1B98B820005E20CC /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		171A87CE1B990154005E20CC /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		171A87CF1B990154005E20CC /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
+		171A87D11B99019A005E20CC /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedList.h; sourceTree = "<group>"; };
+		171A87D21B99019A005E20CC /* LinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedList.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,9 +161,10 @@
 				171A87BE1B979A4D005E20CC /* Reminder.m */,
 				171A87751B950C55005E20CC /* ViewController.h */,
 				171A87761B950C55005E20CC /* ViewController.m */,
-				171A87C91B98B707005E20CC /* SignIn.xib */,
-				171A87CB1B98B820005E20CC /* SignInViewController.h */,
-				171A87CC1B98B820005E20CC /* SignInViewController.m */,
+				171A87CE1B990154005E20CC /* Node.h */,
+				171A87D11B99019A005E20CC /* LinkedList.h */,
+				171A87D21B99019A005E20CC /* LinkedList.m */,
+				171A87CF1B990154005E20CC /* Node.m */,
 				171A87C61B97B2D9005E20CC /* AddReminderDetailViewController.h */,
 				171A87C71B97B2D9005E20CC /* AddReminderDetailViewController.m */,
 				171A87C31B97AC61005E20CC /* Constants.h */,
@@ -316,7 +318,6 @@
 				171A877A1B950C55005E20CC /* Main.storyboard in Resources */,
 				171A877F1B950C55005E20CC /* LaunchScreen.xib in Resources */,
 				171A877C1B950C55005E20CC /* Images.xcassets in Resources */,
-				171A87CA1B98B707005E20CC /* SignIn.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,14 +335,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				171A87CD1B98B820005E20CC /* SignInViewController.m in Sources */,
 				171A87C21B97A267005E20CC /* Keys.m in Sources */,
 				171A87771B950C55005E20CC /* ViewController.m in Sources */,
 				171A87741B950C55005E20CC /* AppDelegate.m in Sources */,
+				171A87D31B99019A005E20CC /* LinkedList.m in Sources */,
 				171A87711B950C55005E20CC /* main.m in Sources */,
 				171A87BF1B979A4D005E20CC /* Reminder.m in Sources */,
 				171A87C51B97AC61005E20CC /* Constants.m in Sources */,
 				171A87C81B97B2D9005E20CC /* AddReminderDetailViewController.m in Sources */,
+				171A87D01B990154005E20CC /* Node.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

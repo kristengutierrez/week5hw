@@ -13,14 +13,16 @@
 #import <UIKit/UIKit.h>
 #import "Reminder.h"
 #import "Constants.h"
+#import <ParseUI/ParseUI.h>
 
-@interface ViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UIGestureRecognizerDelegate>
+@interface ViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UIGestureRecognizerDelegate, PFSignUpViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (copy, nonatomic) void(^myBlock)(NSString *);
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPress;
+@property (strong, nonatomic) PFUser *user;
 
 @end
 
@@ -30,6 +32,8 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reminderNotification:) name:kReminderNotification object:nil];
+  
   self.mapView.delegate = self;
   self.longPress.delegate = self;
   NSLog(@"%d", [CLLocationManager authorizationStatus]);
@@ -41,6 +45,24 @@
   
   self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureRecognizer:)];
   [self.mapView addGestureRecognizer:self.longPress];
+  
+//  [PFUser currentUser]
+  
+  PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
+  signUpViewController.delegate = self;
+  
+  
+  Reminder *reminder = [Reminder object];
+  reminder.name = @"Reminder";
+//  reminder.user = [PFUser currentUser];
+  [reminder saveInBackground];
+  
+  PFQuery *pizzaQuery = [Reminder query];
+  [pizzaQuery findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+    
+    Reminder *firstReminder = [reminders firstObject];
+    NSLog(@"%@",firstReminder.name);
+  }];
   
 }
 
@@ -54,9 +76,14 @@
     
   }];
   
+
+  
+}
+-(void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 //Reminder *reminder = [Reminder object];
-//reminder.name = @"Pizza";
+//reminder.name = @"Reminder";
 //[reminder saveInBackground];
 //PFQuery *pizzaQuery = [Reminder query];
 //[pizzaQuery findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
@@ -82,6 +109,7 @@
    - (IBAction)dcButtonPressed:(id)sender {
      [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(38.9065382, -77.051096), 1000, 1000) animated:true];
    }
+
 
 #pragma mark - CLLocationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {

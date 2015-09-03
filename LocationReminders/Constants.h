@@ -10,4 +10,6 @@
 
 @interface Constants : NSObject
 
+extern NSString *const kReminderNotification;
+
 @end

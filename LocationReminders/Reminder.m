@@ -19,6 +19,6 @@
 }
 
 @dynamic name;
-
+@dynamic user;
 
 @end
