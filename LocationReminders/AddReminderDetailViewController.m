@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 koz. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "AddReminderDetailViewController.h"
 
-@interface DetailViewController ()
+@interface AddReminderDetailViewController ()
 
 @end
 
-@implementation DetailViewController
+@implementation AddReminderDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

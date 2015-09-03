@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "Reminder.h"
+#import "Keys.h"
+#import <Parse/Parse.h>
 @interface AppDelegate ()
 
 @end
@@ -19,6 +21,7 @@
   // Override point for customization after application launch.
 
   [Reminder registerSubclass];
+  [Parse setApplicationId:kApplicationID clientKey:kClientKey];
   return YES;
 }
 

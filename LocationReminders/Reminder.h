@@ -9,5 +9,7 @@
 #import <Parse/Parse.h>
 
 @interface Reminder : PFObject <PFSubclassing>
+//should correspond with columns on Parse
 @property (strong, nonatomic) NSString *name;
+
 @end

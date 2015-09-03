@@ -106,20 +106,28 @@
 
 
 
-//-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-//  if ([annotation isKindOfClass:[MKUserLocation class]]) {
-//    return nil;
-//  }
-//
-//  MKPinAnnotationView *pinView =(MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:@"Annotation View"];
-//  if (!pinView) {
-//    pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Annotation View"];
-//  }
-//  pinView.animatesDrop = true;
-//  pinView.pinColor = MKPinAnnotationColorGreen;
-//  return pinView;
-//}
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+  if ([annotation isKindOfClass:[MKUserLocation class]]) {
+    return nil;
+  }
 
+  MKPinAnnotationView *pinView =(MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:@"Annotation View"];
+  if (!pinView) {
+    pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Annotation View"];
+  }
+  pinView.animatesDrop = true;
+  pinView.pinColor = MKPinAnnotationColorGreen;
+  pinView.canShowCallout = true;
+  
+  UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+  [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+  pinView.rightCalloutAccessoryView = rightButton;
+  return pinView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+  [self performSegueWithIdentifier:@"DetailSegue" sender:self];
+}
 
 #pragma mark - UIGestureRecognizerDelegate
 - (void)handleGestureRecognizer:(UILongPressGestureRecognizer *)sender {
@@ -129,8 +137,9 @@
   NSLog(@"%f, %f", coordinates.latitude, coordinates.longitude);
   MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
   annotation.coordinate = CLLocationCoordinate2DMake(coordinates.latitude, coordinates.longitude);
-  annotation.title = @"WOW";
+  annotation.title = @"My Favorite Place";
   [self.mapView addAnnotation:annotation];
   }
 }
+
 @end

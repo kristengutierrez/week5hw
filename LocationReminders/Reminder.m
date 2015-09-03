@@ -13,7 +13,7 @@
 @end
 
 @implementation Reminder
-
+//return the name of the class you want to correspond with
 + (NSString * __nonnull)parseClassName {
   return @"Reminder";
 }
