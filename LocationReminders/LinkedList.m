@@ -16,9 +16,21 @@
 @end
 
 @implementation LinkedList
-
+//iteration
 - (void)addValue:(id)value {
   
+  Node *newNode = [[Node alloc] init];
+  newNode.value = value;
+  if (!self.head) {
+    self.head = newNode;
+    return;
+  } else {
+    Node *currentNode = self.head;
+    while (currentNode.next){
+      currentNode = currentNode.next;
+    }
+    currentNode.next = newNode;
+  }
 }
 
 @end

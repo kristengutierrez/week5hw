@@ -48,8 +48,9 @@
   
 //  [PFUser currentUser]
   
-  PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
-  signUpViewController.delegate = self;
+//  PFSignUpViewController *signUpVC = [[PFSignUpViewController alloc] init];
+//  signUpVC.delegate = self;
+//  [self presentViewController:signUpVC animated:true completion:nil];
   
   
   Reminder *reminder = [Reminder object];
@@ -66,7 +67,16 @@
   
 }
 
-
+-(void)reminderNotification:(NSNotification *)notification {
+  NSLog(@"notification fired!");
+  NSDictionary *userInfo = notification.userInfo;
+  if (userInfo) {
+    
+    NSString *value = userInfo[@"Yooooo"];
+    
+  }
+  
+}
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
@@ -76,9 +86,53 @@
     
   }];
   
-
+  if (![PFUser currentUser]) { // No user logged in
+    // Create the log in view controller
+    PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
+    [logInViewController setDelegate:self]; // Set ourselves as the delegate
+    
+    // Create the sign up view controller
+    PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
+    [signUpViewController setDelegate:self]; // Set ourselves as the delegate
+    
+    // Assign our sign up controller to be displayed from the login controller
+    [logInViewController setSignUpController:signUpViewController];
+    
+    // Present the log in view controller
+    [self presentViewController:logInViewController animated:YES completion:NULL];
+  }
   
 }
+- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+  [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+// Sent to the delegate when the log in attempt fails.
+- (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
+  NSLog(@"Failed to log in...");
+}
+
+// Sent to the delegate when the log in screen is dismissed.
+- (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+// Sent to the delegate when a PFUser is signed up.
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+  [self dismissModalViewControllerAnimated:YES]; // Dismiss the PFSignUpViewController
+}
+
+// Sent to the delegate when the sign up attempt fails.
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
+  NSLog(@"Failed to sign up...");
+}
+
+// Sent to the delegate when the sign up screen is dismissed.
+- (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
+  NSLog(@"User dismissed the signUpViewController");
+}
+
 -(void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -94,21 +148,6 @@
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
-
-
-   - (IBAction)vegasButtonPressed:(id)sender {
-     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(36.167501, -115.303923), 1000, 1000) animated:true];
-//     MKPointAnnotation *annotation = CLLocationCoordinate2DMake(coordinates.latitude, coordinates.longitude);
-//     annotation.title = @"Vegas House";
-//     [self.mapView addAnnotation:annotation];
-
-   }
-   - (IBAction)sanDiegoButtonPressed:(id)sender {
-     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(32.9949497, -117.1895125), 1000, 1000) animated:true];
-   }
-   - (IBAction)dcButtonPressed:(id)sender {
-     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(38.9065382, -77.051096), 1000, 1000) animated:true];
-   }
 
 
 #pragma mark - CLLocationManagerDelegate

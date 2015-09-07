@@ -8,8 +8,8 @@
 
 #import "Constants.h"
 
-@implementation Constants
 
-extern NSString *const kReminderNotification;
 
-@end
+NSString *const kReminderNotification = @"Reminder Notification";
+
+
