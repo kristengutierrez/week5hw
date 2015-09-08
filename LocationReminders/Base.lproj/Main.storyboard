@@ -29,8 +29,15 @@
                             <constraint firstItem="zsd-bk-Iok" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="agn-dY-Vrm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KlT-DS-u0W"/>
+                    <navigationItem key="navigationItem" id="KlT-DS-u0W">
+                        <barButtonItem key="rightBarButtonItem" title="Log out" id="vOA-a9-8yV">
+                            <connections>
+                                <action selector="logOutPressed:" destination="BYZ-38-t0r" id="Glx-ge-Kf9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="logOut" destination="vOA-a9-8yV" id="Ftm-Ca-OEl"/>
                         <outlet property="mapView" destination="zsd-bk-Iok" id="5li-H7-fSo"/>
                         <segue destination="dbb-em-muU" kind="show" identifier="DetailSegue" id="bxc-Dm-VBJ"/>
                     </connections>
@@ -39,10 +46,10 @@
             </objects>
             <point key="canvasLocation" x="1136" y="262"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Reminder Detail View Controller-->
         <scene sceneID="XaG-ZN-aTc">
             <objects>
-                <viewController id="dbb-em-muU" sceneMemberID="viewController">
+                <viewController id="dbb-em-muU" customClass="AddReminderDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fwa-XL-coi"/>
                         <viewControllerLayoutGuide type="bottom" id="Np9-ep-uy7"/>
@@ -78,6 +85,9 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="215" id="T67-eh-jht"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="dbb-em-muU" eventType="valueChanged" id="KoW-lY-af0"/>
+                                </connections>
                             </slider>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="czn-PT-b6h">
                                 <rect key="frame" x="153" y="169" width="295" height="30"/>
@@ -89,12 +99,43 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T1t-0N-gmx">
-                                <rect key="frame" x="153" y="284" width="295" height="31"/>
+                                <rect key="frame" x="153" y="284" width="295" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="m" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vdk-6U-enG">
+                                <rect key="frame" x="260" y="358" width="12.5" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="XQW-ay-bwf"/>
+                                    <constraint firstAttribute="width" constant="42" id="nCk-Lz-iMb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="XQW-ay-bwf"/>
+                                        <exclude reference="nCk-Lz-iMb"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="125" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hq6-Yd-nGG">
+                                <rect key="frame" x="229" y="356" width="29" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTK-lb-VF5">
+                                <rect key="frame" x="283" y="513" width="34" height="30"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="dbb-em-muU" eventType="touchUpInside" id="4Sz-lv-icI"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Reminders" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8n-up-N5J">
-                                <rect key="frame" x="167" y="72" width="267.5" height="37"/>
+                                <rect key="frame" x="166.5" y="72" width="267.5" height="37"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="31"/>
                                 <color key="textColor" red="0.60392156860000001" green="0.72941176470000002" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -105,21 +146,44 @@
                             <constraint firstAttribute="centerX" secondItem="EZG-y1-rYc" secondAttribute="centerX" id="3eV-vz-A3C"/>
                             <constraint firstItem="w8n-up-N5J" firstAttribute="top" secondItem="fwa-XL-coi" secondAttribute="bottom" constant="8" id="5bb-VK-w2c"/>
                             <constraint firstItem="EZG-y1-rYc" firstAttribute="top" secondItem="eMZ-eO-P1r" secondAttribute="bottom" id="Bkl-mY-G8i"/>
+                            <constraint firstItem="vdk-6U-enG" firstAttribute="leading" secondItem="Hq6-Yd-nGG" secondAttribute="trailing" constant="2" id="Bv2-vI-WC6"/>
+                            <constraint firstItem="vdk-6U-enG" firstAttribute="leading" secondItem="eMZ-eO-P1r" secondAttribute="trailing" constant="51.5" id="DLC-70-gnc"/>
+                            <constraint firstItem="EZG-y1-rYc" firstAttribute="top" secondItem="Hq6-Yd-nGG" secondAttribute="bottom" id="HLr-B9-Vi3"/>
                             <constraint firstAttribute="centerY" secondItem="T1t-0N-gmx" secondAttribute="centerY" id="M8V-y5-5FU"/>
+                            <constraint firstItem="Np9-ep-uy7" firstAttribute="top" secondItem="vdk-6U-enG" secondAttribute="bottom" constant="198" id="ROg-me-Bgz"/>
                             <constraint firstItem="Np9-ep-uy7" firstAttribute="top" secondItem="EZG-y1-rYc" secondAttribute="bottom" constant="193" id="SRd-VM-00u"/>
                             <constraint firstItem="h0d-4F-Hha" firstAttribute="top" secondItem="czn-PT-b6h" secondAttribute="bottom" constant="57" id="UbR-Kg-haQ"/>
+                            <constraint firstItem="EZG-y1-rYc" firstAttribute="top" secondItem="vdk-6U-enG" secondAttribute="bottom" constant="1" id="Ucd-uQ-qwx"/>
+                            <constraint firstItem="jTK-lb-VF5" firstAttribute="top" secondItem="EZG-y1-rYc" secondAttribute="bottom" constant="106" id="VAB-Vu-3Ta"/>
                             <constraint firstItem="ssX-H9-Vso" firstAttribute="top" secondItem="fwa-XL-coi" secondAttribute="bottom" constant="76" id="VeG-Fx-nwH"/>
+                            <constraint firstItem="vdk-6U-enG" firstAttribute="leading" secondItem="EZG-y1-rYc" secondAttribute="trailing" constant="8" id="WJ1-60-cHr"/>
                             <constraint firstItem="eMZ-eO-P1r" firstAttribute="leading" secondItem="ssX-H9-Vso" secondAttribute="leading" id="WLl-bn-Gxr"/>
+                            <constraint firstItem="vdk-6U-enG" firstAttribute="top" secondItem="T1t-0N-gmx" secondAttribute="bottom" constant="66" id="YZ9-86-sVM"/>
+                            <constraint firstAttribute="centerX" secondItem="jTK-lb-VF5" secondAttribute="centerX" id="aJS-4w-Fgn"/>
                             <constraint firstItem="czn-PT-b6h" firstAttribute="leading" secondItem="T1t-0N-gmx" secondAttribute="leading" id="eSl-Ol-X1Y"/>
                             <constraint firstItem="czn-PT-b6h" firstAttribute="top" secondItem="ssX-H9-Vso" secondAttribute="bottom" constant="8" id="fTm-hz-Hbr"/>
                             <constraint firstAttribute="centerX" secondItem="w8n-up-N5J" secondAttribute="centerX" id="fnd-oM-CLP"/>
                             <constraint firstItem="eMZ-eO-P1r" firstAttribute="leading" secondItem="h0d-4F-Hha" secondAttribute="leading" id="gWZ-UJ-I4h"/>
                             <constraint firstAttribute="centerX" secondItem="T1t-0N-gmx" secondAttribute="centerX" id="lhq-XI-hR9"/>
+                            <constraint firstItem="vdk-6U-enG" firstAttribute="top" secondItem="T1t-0N-gmx" secondAttribute="bottom" constant="42" id="pSR-JU-dgY"/>
                             <constraint firstItem="czn-PT-b6h" firstAttribute="leading" secondItem="ssX-H9-Vso" secondAttribute="leading" id="rcy-cm-fgT"/>
                             <constraint firstAttribute="centerX" secondItem="czn-PT-b6h" secondAttribute="centerX" id="s4e-tV-GHP"/>
                             <constraint firstItem="T1t-0N-gmx" firstAttribute="top" secondItem="h0d-4F-Hha" secondAttribute="bottom" constant="8" id="upg-65-IGT"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="WJ1-60-cHr"/>
+                                <exclude reference="YZ9-86-sVM"/>
+                                <exclude reference="ROg-me-Bgz"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="T1t-0N-gmx" id="o1c-Oy-Dc5"/>
+                        <outlet property="label" destination="Hq6-Yd-nGG" id="GsC-fT-6kR"/>
+                        <outlet property="nameLabel" destination="czn-PT-b6h" id="pkS-EQ-2WG"/>
+                        <outlet property="slider" destination="EZG-y1-rYc" id="iYa-4a-jtH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ft6-lK-CIx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

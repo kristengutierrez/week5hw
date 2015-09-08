@@ -12,5 +12,6 @@
 //should correspond with columns on Parse
 @property (strong, nonatomic) NSString *name;
 @property (strong,nonatomic) PFUser *user;
-
+@property (nonatomic) CLLocationCoordinate2D coordinates;
+@property (nonatomic) double radius;
 @end

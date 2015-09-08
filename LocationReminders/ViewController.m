@@ -14,6 +14,7 @@
 #import "Reminder.h"
 #import "Constants.h"
 #import <ParseUI/ParseUI.h>
+#import "AddReminderDetailViewController.h"
 
 @interface ViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UIGestureRecognizerDelegate, PFSignUpViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -23,6 +24,9 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPress;
 @property (strong, nonatomic) PFUser *user;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *logOut;
+
 
 @end
 
@@ -35,6 +39,7 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reminderNotification:) name:kReminderNotification object:nil];
   
   self.mapView.delegate = self;
+  self.mapView.showsUserLocation = true;
   self.longPress.delegate = self;
   NSLog(@"%d", [CLLocationManager authorizationStatus]);
   self.locationManager = [[CLLocationManager alloc] init];
@@ -42,20 +47,12 @@
   [self.locationManager requestWhenInUseAuthorization];
   [self.locationManager startUpdatingLocation];
   
-  
   self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureRecognizer:)];
   [self.mapView addGestureRecognizer:self.longPress];
   
-//  [PFUser currentUser]
-  
-//  PFSignUpViewController *signUpVC = [[PFSignUpViewController alloc] init];
-//  signUpVC.delegate = self;
-//  [self presentViewController:signUpVC animated:true completion:nil];
-  
-  
   Reminder *reminder = [Reminder object];
   reminder.name = @"Reminder";
-//  reminder.user = [PFUser currentUser];
+  //  reminder.user = [PFUser currentUser];
   [reminder saveInBackground];
   
   PFQuery *pizzaQuery = [Reminder query];
@@ -72,7 +69,8 @@
   NSDictionary *userInfo = notification.userInfo;
   if (userInfo) {
     
-    NSString *value = userInfo[@"Yooooo"];
+    NSString *value = userInfo[@"Hello"];
+    NSNumber *sliderValue = userInfo[@"heyyyyy"];
     
   }
   
@@ -117,12 +115,6 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-// Sent to the delegate when a PFUser is signed up.
-- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
-  [self dismissModalViewControllerAnimated:YES]; // Dismiss the PFSignUpViewController
-}
-
 // Sent to the delegate when the sign up attempt fails.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
   NSLog(@"Failed to sign up...");
@@ -132,23 +124,29 @@
 - (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
   NSLog(@"User dismissed the signUpViewController");
 }
+//- (void)logOutViewController:(PFLogInViewController *)loginController {
+//  [self presentViewController:loginController animated:YES completion:nil];
+//}
 
 -(void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-//Reminder *reminder = [Reminder object];
-//reminder.name = @"Reminder";
-//[reminder saveInBackground];
-//PFQuery *pizzaQuery = [Reminder query];
-//[pizzaQuery findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
-//  Reminder *firstReminder = [reminders firstObject];
-//}];
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)logOutPressed:(id)sender {
+  [PFUser logOut];
+  [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//  if ([[segue identifier] isEqualToString:@"DetailSegue"]) {
+//    [segue.destinationViewController annotation];
+//  }
+//}
 
 #pragma mark - CLLocationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -177,7 +175,7 @@
   if ([annotation isKindOfClass:[MKUserLocation class]]) {
     return nil;
   }
-
+  
   MKPinAnnotationView *pinView =(MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:@"Annotation View"];
   if (!pinView) {
     pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Annotation View"];
@@ -199,14 +197,59 @@
 #pragma mark - UIGestureRecognizerDelegate
 - (void)handleGestureRecognizer:(UILongPressGestureRecognizer *)sender {
   if (sender.state == UIGestureRecognizerStateEnded) {
-  CGPoint touchLocation = [sender locationInView:self.mapView];
-  CLLocationCoordinate2D coordinates = [self.mapView convertPoint:touchLocation toCoordinateFromView:self.mapView];
-  NSLog(@"%f, %f", coordinates.latitude, coordinates.longitude);
-  MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-  annotation.coordinate = CLLocationCoordinate2DMake(coordinates.latitude, coordinates.longitude);
-  annotation.title = @"My Favorite Place";
-  [self.mapView addAnnotation:annotation];
+    CGPoint touchLocation = [sender locationInView:self.mapView];
+    CLLocationCoordinate2D coordinates = [self.mapView convertPoint:touchLocation toCoordinateFromView:self.mapView];
+    NSLog(@"%f, %f", coordinates.latitude, coordinates.longitude);
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    annotation.coordinate = CLLocationCoordinate2DMake(coordinates.latitude, coordinates.longitude);
+    annotation.title = @"My Favorite Place";
+    [self.mapView addAnnotation:annotation];
+    
+    PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:coordinates.latitude longitude:coordinates.longitude];
+    PFObject *place = [[PFObject alloc] initWithClassName:@"Place"];
+    place[@"location"] = geoPoint;
+    
+    
+    [place saveInBackground];
+    
+    [place saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+      if (error) {
+        
+      } else if (succeeded) {
+        
+      }
+    }];
+    PFQuery *query = [PFQuery queryWithClassName:@"Place"];
+    [query whereKey:@"location" nearGeoPoint:geoPoint];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+      NSLog(@"%lu",(unsigned long)objects.count);
+    }];
   }
+  if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
+    CGPoint touchLocation = [sender locationInView:self.mapView];
+    CLLocationCoordinate2D coordinates = [self.mapView convertPoint:touchLocation toCoordinateFromView:self.mapView];
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(coordinates.latitude, -122.3363) radius:50 identifier:@"My favorite place"];
+    
+    [self.locationManager startMonitoringForRegion:region];
+    
+    
+    
+    MKCircle *circle = [MKCircle circleWithCenterCoordinate:CLLocationCoordinate2DMake(coordinates.latitude, coordinates.longitude) radius:50];
+    
+    [self.mapView addOverlay:circle];
+    
+    
+  }
+
+}
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+  MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
+  
+//  circleRenderer.strokeColor = [UIColor blueColor];
+  circleRenderer.fillColor = [UIColor blueColor];
+  circleRenderer.alpha = 0.25;
+  
+  return circleRenderer;
 }
 
 @end

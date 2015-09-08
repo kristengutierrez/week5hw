@@ -20,5 +20,7 @@
 
 @dynamic name;
 @dynamic user;
+@dynamic coordinates;
+@dynamic radius;
 
 @end
